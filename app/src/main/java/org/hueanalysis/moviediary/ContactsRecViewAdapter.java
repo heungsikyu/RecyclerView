@@ -53,7 +53,7 @@ public class ContactsRecViewAdapter extends RecyclerView.Adapter<ContactsRecView
         Glide.with(context)
                 .asBitmap()
                 .load(contacts.get(position).getImageUrl())
-                .override(150, 150)
+                .override(300, 300)
                 .centerCrop()
                 .into(holder.image);
 

@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
 
         contactsRecView.setAdapter(adapter);
         //contactsRecView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-        contactsRecView.setLayoutManager(new GridLayoutManager(this, 2));
+        contactsRecView.setLayoutManager(new GridLayoutManager(this, 1));
 
     }
 }
