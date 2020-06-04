@@ -1,4 +1,4 @@
-package org.hueanalysis.recyclerviewexample;
+package org.hueanalysis.moviediary;
 
 import org.junit.Test;
 

@@ -1,12 +1,12 @@
-package org.hueanalysis.recyclerviewexample;
+package org.hueanalysis.moviediary;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
-import android.widget.RelativeLayout;
+
+import org.hueanalysis.moviediary.R;
 
 import java.util.ArrayList;
 
