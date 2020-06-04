@@ -1,18 +1,34 @@
 package org.hueanalysis.moviediary;
 
+import android.os.Bundle;
+import android.util.Log;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
-import android.os.Bundle;
-
-import org.hueanalysis.moviediary.R;
-
-import java.util.ArrayList;
+import org.hueanalysis.moviediary.MovieRetrofitClient;
 
 public class MainActivity extends AppCompatActivity {
 
+    static final String TAG = "----------------------";
+
     private RecyclerView contactsRecView;
+
+    private Retrofit movieRetrofit ;
+    private MovieApiService movieApiService;
+    private Call<Object> movieCallMovieList;
+
+    //private MovieRetrofitClient mRtfCient ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +60,8 @@ public class MainActivity extends AppCompatActivity {
         contacts.add(new Contact("Emma Watson", "emma@gmail.com", "https://upload.wikimedia.org/wikipedia/commons/0/0a/Emma_Watson_interview_in_2017.jpg" ) );
 
 
+
+
         ContactsRecViewAdapter adapter = new ContactsRecViewAdapter(this);
         adapter.setContacts(contacts);
 
@@ -51,5 +69,57 @@ public class MainActivity extends AppCompatActivity {
         //contactsRecView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         contactsRecView.setLayoutManager(new GridLayoutManager(this, 1));
 
+
+        setRetrofitInit();
+        callRecentMovieList();
+
+//        Call<Object> mRecentMovieList = MovieRetrofitClient.getApiService().getRecentMovieList();
+//        Call<Object> mRecentMovieList = MovieRetrofitClient.getApiService().getTest();
+//
+//        try {
+//            System.out.println(mRecentMovieList.execute().body());
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+
+    }
+
+
+
+
+    private  void setRetrofitInit(){
+        String url = "https://api.themoviedb.org/3/";
+        String urlstr  = getResources().getString(R.string.movie_base_url);
+        movieRetrofit = new Retrofit.Builder()
+                .baseUrl(url)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        movieApiService = movieRetrofit.create(MovieApiService.class);
+    }
+
+
+    private void callRecentMovieList() {
+        final String TAG = "<<<<<<<>>>>>>>>>";
+
+        Call<Object> movieCallMovieList = movieApiService.getRecentMovieList();
+        movieCallMovieList.enqueue(new Callback<Object>() {
+            @Override
+            public void onResponse(Call<Object> call, Response<Object> response) {
+                if (response.isSuccessful()){
+                    Object movielist = response.body();
+                    Log.d(TAG, movielist.toString());
+                }else{
+                    Log.d(TAG, "Status code : " + response.code());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Object> call, Throwable t) {
+                Log.d(TAG, "Fail msg : "+ t.getMessage() );
+            }
+        });
+
     }
 }
+

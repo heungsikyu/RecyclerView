@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Moviediary </string>
+    <string name="movie_base_url">https://api.themoviedb.org/3/</string>
 </resources>
