@@ -1,6 +1,6 @@
 # androidx.recyclerview.widget.RecyclerView
 
- ** Git create, commit, push etc  
+ ## Git create, commit, push etc  
  
  ** Data Class - Contact List
 
