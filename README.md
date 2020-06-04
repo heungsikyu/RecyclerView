@@ -1,14 +1,14 @@
 # androidx.recyclerview.widget.RecyclerView
 
- **Git create, commit, push etc  
+ ** Git create, commit, push etc  
  
  ** Data Class - Contact List
 
- **Adapter, ViewHolder 
+ ** Adapter, ViewHolder 
  
  ** Process internet Url Glide https://bumptech.github.io/glide/doc/getting-started.html 
   
- **font change 
+ ** font change 
     
   
 
