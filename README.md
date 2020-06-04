@@ -2,7 +2,7 @@
   ### 
   
   ## Android studio study 
-   ###  [X]* 참고 사이트   https://www.youtube.com/watch?v=fis26HvvDII&list=PL9eNzeH-vR-WS6S1HyLl8XQ8SIq_RePgV
+   - [X] * 참고 사이트   https://www.youtube.com/watch?v=fis26HvvDII&list=PL9eNzeH-vR-WS6S1HyLl8XQ8SIq_RePgV
    
    
   ## Github
@@ -24,9 +24,12 @@
    
   ## Movie Api 적용 
    - [] https://www.themoviedb.org/ 계정 생성  
+   - [] AsyncTask, background 처리 
    
- ** font change 
-   - [] 
+  ## 폰트  change 
+  
+  ## 메뉴 추가 etc 진행 예정 
+
   
 
 
