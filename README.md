@@ -6,7 +6,7 @@
 
  ** Adapter, ViewHolder 
  
- ** Process internet Url Glide https://bumptech.github.io/glide/doc/getting-started.html 
+ ** Process internet image Url Glide https://bumptech.github.io/glide/doc/getting-started.html 
   
  ** font change 
     
