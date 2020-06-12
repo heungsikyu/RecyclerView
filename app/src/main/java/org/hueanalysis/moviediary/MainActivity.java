@@ -89,11 +89,11 @@ public class MainActivity extends AppCompatActivity {
 
     private  void setRetrofitInit(){
         String url = "https://api.themoviedb.org/3/";
-        String urlstr  = getResources().getString(R.string.movie_base_url);
-        movieRetrofit = new Retrofit.Builder()
-                .baseUrl(url)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
+//        String urlstr  = getResources().getString(R.string.movie_base_url);
+//        movieRetrofit = new Retrofit.Builder()
+//                .baseUrl(url)
+//                .addConverterFactory(GsonConverterFactory.create())
+//                .build();
 
         movieApiService = movieRetrofit.create(MovieApiService.class);
     }
