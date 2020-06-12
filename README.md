@@ -24,7 +24,7 @@
    - [X] CardView ->ConstraintLayout으로 변경 
    
   ## 영화 상세 화면 
-   - [X]   
+   - [X] 상세 화면 디자인 처리 
    
   ## Movie Api 적용 
    - [] https://www.themoviedb.org/ 계정 생성  
