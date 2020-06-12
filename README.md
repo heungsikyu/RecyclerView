@@ -21,10 +21,15 @@
   ## Image CardView 
    - [X] cardView 적용 
    - [X] image Url Glide https://bumptech.github.io/glide/doc/getting-started.html 로 적용 
+   - [X] CardView ->ConstraintLayout으로 변경 
+   
+  ## 영화 상세 화면 
+   - [X]   
    
   ## Movie Api 적용 
    - [] https://www.themoviedb.org/ 계정 생성  
    - [] AsyncTask, background 처리 
+   - [] Retrofit 적용 
    
   ## 폰트  change 
   
