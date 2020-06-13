@@ -1,6 +1,8 @@
 package org.hueanalysis.moviediary.ui;
 
 import android.os.Bundle;
+import android.view.Window;
+import android.view.WindowManager;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -23,6 +25,10 @@ public class MovieDetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movie_detail);
+
+        Window w = getWindow();
+       // w.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+
         // ini views
         iniViews();
 
@@ -53,7 +59,7 @@ public class MovieDetailActivity extends AppCompatActivity {
 
         tv_title = findViewById(R.id.detail_movie_title);
         tv_title.setText(movieTitle);
-        getSupportActionBar().setTitle(movieTitle);
+//        getSupportActionBar().setTitle(movieTitle);
 
 
 

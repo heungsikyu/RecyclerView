@@ -58,7 +58,7 @@
             android:layout_marginLeft="28dp"
             android:adjustViewBounds="true"
             android:scaleType="centerCrop"
-            android:transitionName="sharedName"
+            android:transitionName="item_movie_transition"
             app:layout_constraintBottom_toBottomOf="@+id/detail_movie_cover"
             app:layout_constraintCircleRadius="10dp"
             app:layout_constraintStart_toStartOf="parent"
