@@ -5,15 +5,15 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.util.Pair;
-
-import com.google.android.material.tabs.TabLayout;
+import android.widget.LinearLayout;
 
 import org.hueanalysis.moviediary.R;
+import org.hueanalysis.moviediary.adapters.HomeSliderAdapter;
 import org.hueanalysis.moviediary.adapters.MovieAdapter;
 import org.hueanalysis.moviediary.adapters.MovieItemClickListener;
-import org.hueanalysis.moviediary.adapters.SliderPagerAdapter;
 import org.hueanalysis.moviediary.models.Movie;
 import org.hueanalysis.moviediary.models.SlideModel;
 
@@ -22,60 +22,84 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.app.ActivityOptionsCompat;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.viewpager.widget.ViewPager;
+import androidx.viewpager2.widget.CompositePageTransformer;
+import androidx.viewpager2.widget.MarginPageTransformer;
+import androidx.viewpager2.widget.ViewPager2;
 
 import static org.hueanalysis.moviediary.models.Movie.MOVIES;
 
 public class HomeActivity extends AppCompatActivity implements MovieItemClickListener {
 
-    private List<SlideModel> lstSlides;
-
-    private ViewPager sliderpager;
-    private TabLayout indicator;
-
-    private ImageView movieImageView;
-
+    private List<SlideModel> homeMoveSlide;
+    private ViewPager2 movieSliderPager;
+    private LinearLayout layoutIndicator;
+    private HomeSliderAdapter homeSliderAdapter;
 
     //메인 하단 인기 영화,드라마 리스트 리사이클 뷰 셋업
-
     private Movie[] movieData ;
     private RecyclerView movieRV;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
-
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        sliderpager = findViewById(R.id.slider_pager);
-        indicator = findViewById(R.id.indicator);
-
+        movieSliderPager = findViewById(R.id.sliderPager);
+        layoutIndicator = findViewById(R.id.layoutIndicators);
         movieRV = findViewById(R.id.rv_movies);
 
 
         //메인 상단 상영중영화  slides 준비
-        lstSlides = new ArrayList<>();
-        lstSlides.add(new SlideModel(R.drawable.addastrada_bg, "애드 아스트라" ));
-        lstSlides.add(new SlideModel(R.drawable.supersonic_bg, "수퍼 소닉" ));
-        lstSlides.add(new SlideModel(R.drawable.parasite_bg, "기생충" ));
-        SliderPagerAdapter adapter = new SliderPagerAdapter(this.getBaseContext(), lstSlides);
-        sliderpager.setAdapter(adapter);
+        homeMoveSlide = new ArrayList<>();
+        homeMoveSlide.add(new SlideModel(R.drawable.addastrada_bg, "애드 아스트라","/37M8j1nwMs8wu2H2tMtDjqhTSnd.jpg" ));
+        homeMoveSlide.add(new SlideModel(R.drawable.supersonic_bg, "수퍼 소닉","/pMXOlasWr1IzHGH8HWw1ZTXs6rQ.jpg" ));
+        homeMoveSlide.add(new SlideModel(R.drawable.parasite_bg, "기생충" ,"/jKZYyrqeLt4wUzs8rE4tqRfDeCm.jpg"));
+        homeMoveSlide.add(new SlideModel(R.drawable.parasite_bg, "블랙아웃 : 인베이젼 어스" ,"/2sWmX2mqhPOCEtFteX5pC7dZYPk.jpg"));
+        homeMoveSlide.add(new SlideModel(R.drawable.parasite_bg, "스파이더맨: 파 프롬 홈" ,"/742vR63T1AcXzYwHypQpzZd89vh.jpg"));
+
+        homeSliderAdapter = new HomeSliderAdapter(this, homeMoveSlide,movieSliderPager);
+        movieSliderPager.setAdapter(homeSliderAdapter);
+
+        movieSliderPager.setClipToPadding(false);
+        movieSliderPager.setClipChildren(false);
+        movieSliderPager.setOffscreenPageLimit(3);
+        movieSliderPager.getChildAt(0).setOverScrollMode(RecyclerView.OVER_SCROLL_NEVER);
+
+
+        CompositePageTransformer compositePageTransformer = new CompositePageTransformer();
+        compositePageTransformer.addTransformer(new MarginPageTransformer(40));
+        compositePageTransformer.addTransformer(new ViewPager2.PageTransformer() {
+            @Override
+            public void transformPage(@NonNull View page, float position) {
+                float r = 1 - Math.abs(position);
+                page.setScaleY(0.85f + r * 0.15f);
+            }
+        });
+        movieSliderPager.setPageTransformer(compositePageTransformer);
+
+        //setup indicator
+        setupMovieSliderIndicators();
+        setCurrentMovieSliderIndicator(0);
+        movieSliderPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+            @Override
+            public void onPageSelected(int position) {
+                super.onPageSelected(position);
+                setCurrentMovieSliderIndicator(position);
+            }
+        });
 
         //setup timer
         Timer timer = new Timer();
         timer.scheduleAtFixedRate(new SliderTimer(), 4000, 6000);
-        indicator.setupWithViewPager(sliderpager, true);
 
 
+        //
         movieData = MOVIES;
         MovieAdapter movieAdapter = new MovieAdapter(this, movieData, this );
 
@@ -87,6 +111,38 @@ public class HomeActivity extends AppCompatActivity implements MovieItemClickLis
     }
 
 
+    private void setupMovieSliderIndicators(){
+        ImageView[] indicators = new ImageView[homeSliderAdapter.getItemCount()];
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT
+        );
+        layoutParams.setMargins(8,0, 8,0);
+        for(int i = 0 ; i < indicators.length; i++){
+            indicators[i] = new ImageView((getApplicationContext()));
+            indicators[i].setImageDrawable(ContextCompat.getDrawable(
+                    getApplicationContext(),
+                    R.drawable.indicator_inactive
+            ));
+            indicators[i].setLayoutParams(layoutParams);
+            layoutIndicator.addView(indicators[i]);
+        }
+    }
+
+    private void setCurrentMovieSliderIndicator(int index){
+        int childCount = layoutIndicator.getChildCount();
+        for(int i = 0; i <childCount; i++){
+            ImageView imageView = (ImageView) layoutIndicator.getChildAt(i);
+            if(i == index){
+                imageView.setImageDrawable(
+                        ContextCompat.getDrawable(getApplicationContext(), R.drawable.indicator_active)
+                );
+            }else{
+                imageView.setImageDrawable(
+                        ContextCompat.getDrawable(getApplicationContext(), R.drawable.indicator_inactive)
+                );
+            }
+        }
+    }
 
     private long mLastClickTime  = 0;
 
@@ -109,11 +165,9 @@ public class HomeActivity extends AppCompatActivity implements MovieItemClickLis
         pairs[0] = new Pair<View,String>(movieImageView, "item_movie_transition");
 
         ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(HomeActivity.this, pairs);
-
         startActivity(intent, options.toBundle());
 
     }
-
 
     class SliderTimer extends TimerTask {
         @Override
@@ -122,11 +176,11 @@ public class HomeActivity extends AppCompatActivity implements MovieItemClickLis
                 @Override
                 public void run() {
 
-                    if(sliderpager.getCurrentItem() < lstSlides.size()-1){
-                        sliderpager.setCurrentItem(sliderpager.getCurrentItem()+1);
+                    if(movieSliderPager.getCurrentItem() < homeMoveSlide.size() - 1){
+                        movieSliderPager.setCurrentItem(movieSliderPager.getCurrentItem()+1);
                     }
                     else
-                        sliderpager.setCurrentItem(0);
+                        movieSliderPager.setCurrentItem(0);
                 }
             });
         }

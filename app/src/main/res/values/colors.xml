@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+<!--    <color name="colorPrimary">#151c25</color>-->
     <color name="colorPrimary">#151c25</color>
     <color name="colorPrimaryDark">#151c25</color>
     <color name="colorAccent">#F44336</color>
-    <color name="playButton">#8BF4E8B7</color>
+    <color name="playButton">#FFC107</color>
     <color name="text_light_blue">#566f9a</color>
+    <color name="text_white">#ffffff</color>
 </resources>

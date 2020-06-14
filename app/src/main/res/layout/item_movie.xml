@@ -8,8 +8,7 @@
     android:layout_marginRight="8dp"
     android:clickable="true"
     android:focusable="true"
-    android:id="@+id/detail_movie_container"
-    android:foreground="?attr/selectableItemBackgroundBorderless">
+    android:id="@+id/detail_movie_container">
 
 
     <ImageView
