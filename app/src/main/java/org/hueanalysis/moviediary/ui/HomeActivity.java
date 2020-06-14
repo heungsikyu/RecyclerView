@@ -78,7 +78,7 @@ public class HomeActivity extends AppCompatActivity implements MovieItemClickLis
             @Override
             public void transformPage(@NonNull View page, float position) {
                 float r = 1 - Math.abs(position);
-                page.setScaleY(0.85f + r * 0.15f);
+                page.setScaleY(0.8f + r * 0.25f);
             }
         });
         movieSliderPager.setPageTransformer(compositePageTransformer);
