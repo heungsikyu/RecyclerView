@@ -44,12 +44,13 @@ public class HomeSliderAdapter  extends RecyclerView.Adapter<HomeSliderAdapter.H
 
     @Override
     public void onBindViewHolder(@NonNull HomeSliderViewHolder holder, int position) {
-        //holder.setImage(slideMovieList.get(position));
-        Glide.with(context)
-                //.asBitmap()
-                .load(slideMovieList.get(position).getPoster_path())
-                .into(holder.imageView);
+        String imagePath = slideMovieList.get(position).getPoster_path();
+        holder.setImage(imagePath, holder);
 
+//        Glide.with(context)
+//                //.asBitmap()
+//                .load(slideMovieList.get(position).getPoster_path())
+//                .into(holder.imageView);
     }
 
     @Override
@@ -67,12 +68,12 @@ public class HomeSliderAdapter  extends RecyclerView.Adapter<HomeSliderAdapter.H
             imageView = itemView.findViewById(R.id.homeMovieSlide);
         }
 
-        void setImage(SlideModel movieList) {
+        void setImage(String imagePath, HomeSliderViewHolder holder) {
            // imageView.setImageResource(movieList.getImage());
             Glide.with(context)
                     //.asBitmap()
-                    .load(movieList.getPoster_path())
-                    .into(imageView);
+                    .load(imagePath)
+                    .into(holder.imageView);
         }
 
 

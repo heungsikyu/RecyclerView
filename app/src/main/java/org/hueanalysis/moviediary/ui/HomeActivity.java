@@ -57,11 +57,11 @@ public class HomeActivity extends AppCompatActivity implements MovieItemClickLis
 
         //메인 상단 상영중영화  slides 준비
         homeMoveSlide = new ArrayList<>();
-        homeMoveSlide.add(new SlideModel(R.drawable.addastrada_bg, "애드 아스트라","/37M8j1nwMs8wu2H2tMtDjqhTSnd.jpg" ));
-        homeMoveSlide.add(new SlideModel(R.drawable.supersonic_bg, "수퍼 소닉","/pMXOlasWr1IzHGH8HWw1ZTXs6rQ.jpg" ));
-        homeMoveSlide.add(new SlideModel(R.drawable.parasite_bg, "기생충" ,"/jKZYyrqeLt4wUzs8rE4tqRfDeCm.jpg"));
-        homeMoveSlide.add(new SlideModel(R.drawable.parasite_bg, "블랙아웃 : 인베이젼 어스" ,"/2sWmX2mqhPOCEtFteX5pC7dZYPk.jpg"));
-        homeMoveSlide.add(new SlideModel(R.drawable.parasite_bg, "스파이더맨: 파 프롬 홈" ,"/742vR63T1AcXzYwHypQpzZd89vh.jpg"));
+        homeMoveSlide.add(new SlideModel("애드 아스트라","/37M8j1nwMs8wu2H2tMtDjqhTSnd.jpg" ));
+        homeMoveSlide.add(new SlideModel("수퍼 소닉","/pMXOlasWr1IzHGH8HWw1ZTXs6rQ.jpg" ));
+        homeMoveSlide.add(new SlideModel("기생충" ,"/jKZYyrqeLt4wUzs8rE4tqRfDeCm.jpg"));
+        homeMoveSlide.add(new SlideModel("블랙아웃 : 인베이젼 어스" ,"/2sWmX2mqhPOCEtFteX5pC7dZYPk.jpg"));
+        homeMoveSlide.add(new SlideModel("스파이더맨: 파 프롬 홈" ,"/742vR63T1AcXzYwHypQpzZd89vh.jpg"));
 
         homeSliderAdapter = new HomeSliderAdapter(this, homeMoveSlide,movieSliderPager);
         movieSliderPager.setAdapter(homeSliderAdapter);
@@ -160,6 +160,8 @@ public class HomeActivity extends AppCompatActivity implements MovieItemClickLis
         intent.putExtra("imgURL",movie.getPoster_path());
         intent.putExtra("imgCover",movie.getBackdrop_path());
         intent.putExtra("overview",movie.getOverview());
+        intent.putExtra("voteRate",movie.getVote_average());
+
 
         Pair[] pairs = new Pair[1];
         pairs[0] = new Pair<View,String>(movieImageView, "item_movie_transition");

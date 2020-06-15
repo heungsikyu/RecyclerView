@@ -13,20 +13,20 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-
         <ImageView
             android:id="@+id/detail_movie_cover"
             android:layout_width="wrap_content"
-            android:layout_height="275dp"
+            android:layout_height="230dp"
             android:scaleType="centerCrop"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:srcCompat="@tools:sample/backgrounds/scenic" />
+
         <ImageView
-            android:id="@+id/imageView2"
+            android:id="@+id/imageBgTop"
             android:layout_width="0dp"
-            android:layout_height="100dp"
+            android:layout_height="80dp"
             android:src="@drawable/gradient_bg_270"
             app:layout_constraintBottom_toBottomOf="@+id/detail_movie_cover"
             app:layout_constraintEnd_toEndOf="@+id/detail_movie_cover"
@@ -36,79 +36,139 @@
             app:layout_constraintVertical_bias="0.0" />
 
         <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="0dp"
-            android:layout_height="275dp"
+            android:id="@+id/imageBgBottom"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
             android:src="@drawable/gradient_bg"
             app:layout_constraintBottom_toBottomOf="@+id/detail_movie_cover"
-            app:layout_constraintEnd_toEndOf="@+id/detail_movie_cover"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/detail_movie_cover"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintStart_toStartOf="parent" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/play_fab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:clickable="true"
             android:focusable="true"
             android:src="@drawable/ic_baseline_play_arrow_24"
-            app:backgroundTint="@color/playButton"
-            app:layout_constraintBottom_toBottomOf="@+id/detail_movie_cover"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/detail_movie_cover"
-            app:layout_constraintTop_toTopOf="@+id/detail_movie_cover"
-            tools:ignore="MissingConstraints"
-            android:id="@+id/play_fab"/>
+            app:backgroundTint="@color/colorAccent"
+            app:layout_constraintBottom_toBottomOf="@+id/detail_movie_img"
+            app:layout_constraintEnd_toEndOf="@+id/detail_movie_img"
+            app:layout_constraintStart_toStartOf="@+id/detail_movie_img"
+            app:layout_constraintTop_toBottomOf="@+id/detail_movie_img"
+            tools:ignore="MissingConstraints" />
 
         <com.makeramen.roundedimageview.RoundedImageView
             android:id="@+id/detail_movie_img"
-            android:layout_width="125dp"
+            android:layout_width="120dp"
             android:layout_height="175dp"
-            android:layout_marginStart="28dp"
-            android:layout_marginLeft="28dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
             android:adjustViewBounds="true"
             android:scaleType="centerCrop"
-            app:riv_corner_radius="10dp"
+            android:src="@drawable/addastrada"
             android:transitionName="item_movie_transition"
             app:layout_constraintBottom_toBottomOf="@+id/detail_movie_cover"
             app:layout_constraintCircleRadius="10dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/detail_movie_cover"
-            app:layout_constraintVertical_bias="0.474"
-            app:srcCompat="@drawable/addastrada" />
+            app:layout_constraintVertical_bias="0.48000002"
+            app:riv_corner_radius="10dp" />
 
         <TextView
             android:id="@+id/detail_movie_title"
-            android:layout_width="0dp"
+            android:layout_width="220dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginLeft="16dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             android:layout_marginRight="16dp"
-            android:text="Title"
+            android:fontFamily="@font/gmarketsansttfbold"
+            android:lineSpacingExtra="3dp"
+            android:text="Movie Title"
             android:textColor="@android:color/white"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="@+id/detail_movie_cover"
+            app:layout_constraintEnd_toEndOf="@+id/imageBgBottom"
+            app:layout_constraintHorizontal_bias="0.1"
             app:layout_constraintStart_toEndOf="@+id/detail_movie_img"
-            app:layout_constraintTop_toBottomOf="@+id/detail_movie_cover" />
+            app:layout_constraintTop_toTopOf="@+id/imageBgBottom" />
+
+        <antonkozyriatskyi.circularprogressindicator.CircularProgressIndicator
+            android:id="@+id/vote_rate"
+            style="?android:attr/progressBarStyle"
+            android:layout_gravity="center"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_marginTop="8dp"
+            app:direction="clockwise"
+            app:fillBackground="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.06"
+            app:layout_constraintStart_toEndOf="@+id/detail_movie_img"
+            app:layout_constraintTop_toBottomOf="@+id/detail_movie_title"
+            app:progressBackgroundColor="@color/text_white"
+            app:progressBackgroundStrokeWidth="3dp"
+            app:progressCap="butt"
+            app:progressColor="@color/colorAccent"
+            app:progressStrokeWidth="6dp"
+            app:startAngle="270"
+            app:textSize="12sp" />
+
+        <com.ms.square.android.expandabletextview.ExpandableTextView
+            android:id="@+id/detail_movie_desc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            app:animDuration="200"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/play_fab"
+            app:maxCollapsedLines="3"
+            tools:ignore="MissingConstraints">
+
+            <TextView
+                android:id="@id/expandable_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/nanumsquareroundr"
+                android:lineSpacingExtra="7dp"
+                android:text="@string/simple_text"
+                android:textColor="@color/text_light_blue"
+                android:textSize="14sp" />
+
+            <ImageButton
+                android:id="@id/expand_collapse"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:background="@android:color/transparent"
+                android:padding="8dp" />
+        </com.ms.square.android.expandabletextview.ExpandableTextView>
 
         <TextView
-            android:id="@+id/detail_movie_desc"
+            android:id="@+id/cast_title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginLeft="24dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="24dp"
-            android:layout_marginRight="24dp"
-            android:lineSpacingExtra="8dp"
-            android:text="@string/simple_text"
-            android:textColor="@color/text_light_blue"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:fontFamily="@font/gmarketsansttfbold"
+            android:text="등장인물"
+            android:textColor="@color/text_white"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/detail_movie_img" />
+            app:layout_constraintTop_toBottomOf="@+id/detail_movie_desc" />
+
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

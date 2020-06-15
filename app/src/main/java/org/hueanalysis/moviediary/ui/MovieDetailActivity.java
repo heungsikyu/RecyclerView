@@ -9,15 +9,19 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.ms.square.android.expandabletextview.ExpandableTextView;
 
 import org.hueanalysis.moviediary.R;
 
 import androidx.appcompat.app.AppCompatActivity;
+import antonkozyriatskyi.circularprogressindicator.CircularProgressIndicator;
 
 public class MovieDetailActivity extends AppCompatActivity {
 
     private ImageView MovieThumbnailImg,MovieCoverImg;
     private TextView tv_title,tv_description;
+    private ExpandableTextView expandableTextView ;
+    private CircularProgressIndicator circularProgress;
 
     private FloatingActionButton play_fab;
 
@@ -42,7 +46,7 @@ public class MovieDetailActivity extends AppCompatActivity {
         String imagethumUrl = getIntent().getExtras().getString("imgURL");
         String imagecover = getIntent().getExtras().getString("imgCover");
         String overview = getIntent().getExtras().getString("overview");
-
+        double voteRate = getIntent().getExtras().getDouble("voteRate");
         MovieThumbnailImg = findViewById(R.id.detail_movie_img);
         Glide.with(this)
                 .asBitmap()
@@ -63,8 +67,17 @@ public class MovieDetailActivity extends AppCompatActivity {
 
 
 
-        tv_description = findViewById(R.id.detail_movie_desc);
-        tv_description.setText(overview);
+//        tv_description = findViewById(R.id.detail_movie_desc);
+//        tv_description.setText(overview);
+
+        expandableTextView = findViewById(R.id.detail_movie_desc);
+        expandableTextView.setText(overview);
+
+
+        circularProgress = findViewById(R.id.vote_rate);
+        circularProgress.setMaxProgress(100);
+        circularProgress.setCurrentProgress(voteRate*10);
+
 
         // setup animation
         MovieThumbnailImg.setAnimation(AnimationUtils.loadAnimation(this, R.anim.scale_animation));
