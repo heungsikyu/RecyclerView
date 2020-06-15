@@ -1,6 +1,6 @@
 package org.hueanalysis.moviediary.models;
 
-public class SlideModel {
+public class HomeSlideMovieModel {
 
     private int Image;
     private String Title;
@@ -8,7 +8,7 @@ public class SlideModel {
     private static final String POSTER_THUMB_BASE_URL = "https://image.tmdb.org/t/p/w440_and_h660_face";
     private static final String BACKGROUND_BASE_URL = "https://image.tmdb.org/t/p/w500_and_h282_face";
 
-    public SlideModel( String title, String poster_path) {
+    public HomeSlideMovieModel(String title, String poster_path) {
         Title = title;
         Poster_path = poster_path;
     }

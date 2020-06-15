@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 <!--    <color name="colorPrimary">#151c25</color>-->
-    <color name="colorPrimary">#030303</color>
-    <color name="colorPrimaryDark">#121921</color>
-    <color name="colorAccent">#F44336</color>
+    <color name="colorPrimary">#000000</color>
+    <color name="colorPrimaryDark">#222831</color>
+    <color name="colorAccent">#32e0c4</color>
     <color name="playButton">#FFC107</color>
-    <color name="text_light_blue">#696C6F</color>
+    <color name="text_light_gray">#76787A</color>
     <color name="text_white">#ffffff</color>
     <color name="title_bg">#121212</color>
 </resources>

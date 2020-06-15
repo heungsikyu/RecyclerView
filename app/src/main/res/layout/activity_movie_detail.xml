@@ -89,7 +89,7 @@
             android:lineSpacingExtra="3dp"
             android:text="Movie Title"
             android:textColor="@android:color/white"
-            android:textSize="18sp"
+            android:textSize="22sp"
             app:layout_constraintBottom_toBottomOf="@+id/detail_movie_cover"
             app:layout_constraintEnd_toEndOf="@+id/imageBgBottom"
             app:layout_constraintHorizontal_bias="0.1"
@@ -140,7 +140,7 @@
                 android:fontFamily="@font/nanumsquareroundr"
                 android:lineSpacingExtra="7dp"
                 android:text="@string/simple_text"
-                android:textColor="@color/text_light_blue"
+                android:textColor="@color/text_light_gray"
                 android:textSize="14sp" />
 
             <ImageButton
@@ -159,7 +159,6 @@
             android:layout_marginStart="16dp"
             android:layout_marginLeft="16dp"
             android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
             android:fontFamily="@font/gmarketsansttfbold"
             android:text="등장인물"
             android:textColor="@color/text_white"
@@ -167,8 +166,22 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/detail_movie_desc" />
+            app:layout_constraintTop_toBottomOf="@+id/detail_movie_desc"
+            app:layout_constraintVertical_bias="0.0" />
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_moviecast"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintLeft_toRightOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cast_title" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

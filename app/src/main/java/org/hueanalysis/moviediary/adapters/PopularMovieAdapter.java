@@ -12,22 +12,22 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 
 import org.hueanalysis.moviediary.R;
-import org.hueanalysis.moviediary.models.Movie;
+import org.hueanalysis.moviediary.models.PopularMovieModel;
 
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHolder> {
+public class PopularMovieAdapter extends RecyclerView.Adapter<PopularMovieAdapter.MovieViewHolder> {
 
     Context context;
-    Movie[] movies ;
+    PopularMovieModel[] movies ;
 
     MovieItemClickListener movieItemClickListener;
 
     RequestOptions option;
 
-    public MovieAdapter(Context context, Movie[] movies, MovieItemClickListener listener) {
+    public PopularMovieAdapter(Context context, PopularMovieModel[] movies, MovieItemClickListener listener) {
         this.context = context;
         this.movies = movies;
         movieItemClickListener = listener;

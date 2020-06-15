@@ -12,9 +12,15 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.ms.square.android.expandabletextview.ExpandableTextView;
 
 import org.hueanalysis.moviediary.R;
+import org.hueanalysis.moviediary.adapters.MovieCastAdapter;
+import org.hueanalysis.moviediary.models.CastMovieModel;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import antonkozyriatskyi.circularprogressindicator.CircularProgressIndicator;
+
+import static org.hueanalysis.moviediary.models.CastMovieModel.CASTS;
 
 public class MovieDetailActivity extends AppCompatActivity {
 
@@ -25,22 +31,22 @@ public class MovieDetailActivity extends AppCompatActivity {
 
     private FloatingActionButton play_fab;
 
+    private RecyclerView rvMovieCast;
+    private CastMovieModel[] castMovieModels;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movie_detail);
 
-        Window w = getWindow();
-       // w.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
-
-        // ini views
-        iniViews();
-
+        initViews();
 
     }
 
-    void iniViews() {
+    void initViews() {
         play_fab = findViewById(R.id.play_fab);
+        rvMovieCast = findViewById(R.id.rv_moviecast);
 
         String movieTitle = getIntent().getExtras().getString("title");
         String imagethumUrl = getIntent().getExtras().getString("imgURL");
@@ -53,7 +59,6 @@ public class MovieDetailActivity extends AppCompatActivity {
                 .load(imagethumUrl)
                 .into(MovieThumbnailImg);
 
-        //MovieThumbnailImg.setImageResource(imageResourceId);
 
         MovieCoverImg = findViewById(R.id.detail_movie_cover);
         Glide.with(this)
@@ -63,26 +68,34 @@ public class MovieDetailActivity extends AppCompatActivity {
 
         tv_title = findViewById(R.id.detail_movie_title);
         tv_title.setText(movieTitle);
-//        getSupportActionBar().setTitle(movieTitle);
-
-
-
-//        tv_description = findViewById(R.id.detail_movie_desc);
-//        tv_description.setText(overview);
 
         expandableTextView = findViewById(R.id.detail_movie_desc);
         expandableTextView.setText(overview);
 
-
         circularProgress = findViewById(R.id.vote_rate);
         circularProgress.setMaxProgress(100);
         circularProgress.setCurrentProgress(voteRate*10);
-
+        circularProgress.setProgressTextAdapter(TIME_TEXT_ADAPTER);
 
         // setup animation
         MovieThumbnailImg.setAnimation(AnimationUtils.loadAnimation(this, R.anim.scale_animation));
         MovieCoverImg.setAnimation(AnimationUtils.loadAnimation(this, R.anim.scale_animation));
         play_fab.setAnimation(AnimationUtils.loadAnimation(this, R.anim.scale_animation));
 
+
+        //영화 등장인물
+        castMovieModels = CASTS;
+        MovieCastAdapter movieCastAdapter = new MovieCastAdapter(this, castMovieModels);
+        rvMovieCast.setAdapter(movieCastAdapter);
+        rvMovieCast.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL,false));
+
     }
+
+    private static final CircularProgressIndicator.ProgressTextAdapter TIME_TEXT_ADAPTER = new CircularProgressIndicator.ProgressTextAdapter() {
+        @Override
+        public String formatText(double voteRate) {
+            String vr = String.valueOf(voteRate/10);
+            return vr;
+        }
+    };
 }

@@ -10,7 +10,7 @@ import com.bumptech.glide.Glide;
 import com.makeramen.roundedimageview.RoundedImageView;
 
 import org.hueanalysis.moviediary.R;
-import org.hueanalysis.moviediary.models.SlideModel;
+import org.hueanalysis.moviediary.models.HomeSlideMovieModel;
 
 import java.util.List;
 
@@ -21,10 +21,10 @@ import androidx.viewpager2.widget.ViewPager2;
 public class HomeSliderAdapter  extends RecyclerView.Adapter<HomeSliderAdapter.HomeSliderViewHolder> {
 
     Context context;
-    private List<SlideModel> slideMovieList;
+    private List<HomeSlideMovieModel> slideMovieList;
     private ViewPager2 viewPager2;
 
-    public HomeSliderAdapter(Context context, List<SlideModel> slideMovieList, ViewPager2 viewPager2) {
+    public HomeSliderAdapter(Context context, List<HomeSlideMovieModel> slideMovieList, ViewPager2 viewPager2) {
         this.context = context;
         this.slideMovieList = slideMovieList;
         this.viewPager2 = viewPager2;

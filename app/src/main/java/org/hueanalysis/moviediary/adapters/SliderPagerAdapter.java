@@ -8,7 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import org.hueanalysis.moviediary.R;
-import org.hueanalysis.moviediary.models.SlideModel;
+import org.hueanalysis.moviediary.models.HomeSlideMovieModel;
 
 import java.util.List;
 
@@ -18,9 +18,9 @@ import androidx.viewpager.widget.PagerAdapter;
 public class SliderPagerAdapter extends PagerAdapter {
 
     private Context mContext;
-    private List<SlideModel> mList;
+    private List<HomeSlideMovieModel> mList;
 
-    public SliderPagerAdapter(Context mContext, List<SlideModel> mList) {
+    public SliderPagerAdapter(Context mContext, List<HomeSlideMovieModel> mList) {
         this.mContext = mContext;
         this.mList = mList;
     }
