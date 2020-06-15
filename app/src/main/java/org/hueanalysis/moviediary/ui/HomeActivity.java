@@ -2,8 +2,11 @@ package org.hueanalysis.moviediary.ui;
 
 import android.app.ActivityOptions;
 import android.content.Intent;
+import android.graphics.Point;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.Display;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -72,15 +75,36 @@ public class HomeActivity extends AppCompatActivity implements MovieItemClickLis
         movieSliderPager.getChildAt(0).setOverScrollMode(RecyclerView.OVER_SCROLL_NEVER);
 
 
+        Display display = getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        int width = size.x;
+        int height = size.y;
+        Log.d("--------- width : ", String.valueOf(width));
+        Log.d("--------- height : ", String.valueOf(height));
+
+
+
         CompositePageTransformer compositePageTransformer = new CompositePageTransformer();
         compositePageTransformer.addTransformer(new MarginPageTransformer(40));
-        compositePageTransformer.addTransformer(new ViewPager2.PageTransformer() {
-            @Override
-            public void transformPage(@NonNull View page, float position) {
-                float r = 1 - Math.abs(position);
-                page.setScaleY(0.8f + r * 0.25f);
-            }
-        });
+        if (height < 1777){
+            compositePageTransformer.addTransformer(new ViewPager2.PageTransformer() {
+                @Override
+                public void transformPage(@NonNull View page, float position) {
+                    float r = 1 - Math.abs(position);
+                    page.setScaleY(0.8f + r * 0.25f);
+                }
+            });
+        }else{
+            compositePageTransformer.addTransformer(new ViewPager2.PageTransformer() {
+                @Override
+                public void transformPage(@NonNull View page, float position) {
+                    float r = 1 - Math.abs(position);
+                    page.setScaleY(0.75f + r * 0.14f);
+                }
+            });
+        }
+
         movieSliderPager.setPageTransformer(compositePageTransformer);
 
         //setup indicator
