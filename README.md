@@ -1,15 +1,15 @@
 # MovieDiary 
   ### 
   
-  ## Android studio study 
-   - [X] * 참고 사이트   https://www.youtube.com/watch?v=fis26HvvDII&list=PL9eNzeH-vR-WS6S1HyLl8XQ8SIq_RePgV
-   
-   
+  ## Android studio study 참고 사이트 
+   - [X] * https://www.youtube.com/watch?v=fis26HvvDII&list=PL9eNzeH-vR-WS6S1HyLl8XQ8SIq_RePgV
+   - [X] * https://www.youtube.com/watch?v=eIQlhHFArRE&list=PLDKucuCBdlJbMTDq0RCx9GLNtka9U1deC
+   - [X] * https://www.youtube.com/channel/UCmL5TAblHHgh1xhabmPjYgw
+    
   ## Github
   - [X] Git create, commit, push etc 
 
   ## Data repository class 
- 
    - [X] Contacts Repository class 생성 
 
   ## RecyclerView
@@ -30,10 +30,31 @@
    - [] https://www.themoviedb.org/ 계정 생성  
    - [] AsyncTask, background 처리 
    - [] Retrofit 적용 
-   
-  ## 폰트  change 
+    
+  ## 디자인 변경 
+    # 
+    
   
-  ## 메뉴 추가 etc 진행 예정 
+  
+  ## Player 연결 
+   - [X] player 구현 
+   - [X] YoutubePlayer 구현 
+  
+  ## Retrofit으로 API 연결 
+  
+    
+  ## 폰트 change 
+   - [X] gmarketsansmedium, gmarketsansttfbold, gmarketsansttflight, gmarketsansttfmedium, nanumsquareroundr
+  
+  ## SQL 연결 
+  
+
+  ## 로고 아이콘 
+    
+  ## paly store 등록 
+  
+  
+  ## 메뉴 추가 etc 기능  
 
   
 
