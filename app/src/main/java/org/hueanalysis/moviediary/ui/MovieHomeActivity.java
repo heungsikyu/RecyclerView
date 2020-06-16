@@ -14,10 +14,11 @@ import android.widget.LinearLayout;
 
 import org.hueanalysis.moviediary.R;
 import org.hueanalysis.moviediary.adapters.HomeSliderAdapter;
-import org.hueanalysis.moviediary.adapters.PopularMovieAdapter;
+import org.hueanalysis.moviediary.adapters.MovieAdapter;
 import org.hueanalysis.moviediary.adapters.MovieItemClickListener;
-import org.hueanalysis.moviediary.models.PopularMovieModel;
+import org.hueanalysis.moviediary.models.MovieModel;
 import org.hueanalysis.moviediary.models.HomeSlideMovieModel;
+import org.hueanalysis.moviediary.utils.DataSource;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,17 +35,15 @@ import androidx.viewpager2.widget.CompositePageTransformer;
 import androidx.viewpager2.widget.MarginPageTransformer;
 import androidx.viewpager2.widget.ViewPager2;
 
-import static org.hueanalysis.moviediary.models.PopularMovieModel.MOVIES;
 
 public class MovieHomeActivity extends AppCompatActivity implements MovieItemClickListener {
 
     private List<HomeSlideMovieModel> homeMoveSlide;
-    private ViewPager2 movieSliderPager;
-    private LinearLayout layoutIndicator;
-    private HomeSliderAdapter homeSliderAdapter;
+    private MovieModel[] popularMovieModels ;
 
-    //메인 하단 인기 영화,드라마 리스트 리사이클 뷰 셋업
-    private PopularMovieModel[] popularMovieModels ;
+    private ViewPager2 movieSliderPager;
+    private LinearLayout indicatorLayout;
+    private HomeSliderAdapter homeSliderAdapter;
     private RecyclerView homePopularMovieRV;
 
     @Override
@@ -52,11 +51,26 @@ public class MovieHomeActivity extends AppCompatActivity implements MovieItemCli
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movie_home);
 
+        initViews();
+        CompositePageTransformer compositePageTransformer = initResolutionSwipe();
+
+        initMainSlider(compositePageTransformer);
+        initPopularMovieList();
+
+        //슬라이더 setup timer
+        Timer timer = new Timer();
+        timer.scheduleAtFixedRate(new SliderTimer(), 4000, 6000);
+    }
+
+    //화면 초기화
+    private void initViews() {
         movieSliderPager = findViewById(R.id.sliderPager); // 메인 슬라이더 페이져
-        layoutIndicator = findViewById(R.id.layoutIndicators); //메인 슬라이더 인디케이
+        indicatorLayout = findViewById(R.id.layoutIndicators); //메인 슬라이더 인디케이
         homePopularMovieRV = findViewById(R.id.rv_popularmovies); //인기 영화
+    }
 
-
+    //메인 슬라이드 초기
+    private void initMainSlider(CompositePageTransformer compositePageTransformer) {
         //메인 상단 상영중영화  slides 준비
         homeMoveSlide = new ArrayList<>();
         homeMoveSlide.add(new HomeSlideMovieModel("애드 아스트라","/37M8j1nwMs8wu2H2tMtDjqhTSnd.jpg" ));
@@ -72,8 +86,37 @@ public class MovieHomeActivity extends AppCompatActivity implements MovieItemCli
         movieSliderPager.setClipChildren(false);
         movieSliderPager.setOffscreenPageLimit(3);
         movieSliderPager.getChildAt(0).setOverScrollMode(RecyclerView.OVER_SCROLL_NEVER);
+        movieSliderPager.setPageTransformer(compositePageTransformer);
 
 
+        //setup indicator
+        setupMovieSliderIndicators();
+        setCurrentMovieSliderIndicator(0);
+        movieSliderPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+            @Override
+            public void onPageSelected(int position) {
+                super.onPageSelected(position);
+                setCurrentMovieSliderIndicator(position);
+            }
+        });
+
+
+    }
+
+    //인기 영화 리스트
+    private void initPopularMovieList() {
+        //인기영화데이터 가져오기
+        popularMovieModels = DataSource.getMOVIES();
+        //인기 영화 리스트
+        MovieAdapter movieAdapter = new MovieAdapter(this, popularMovieModels, this );
+
+        homePopularMovieRV.setAdapter(movieAdapter);
+        homePopularMovieRV.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        //movieRV.setLayoutManager(new GridLayoutManager(this, 3));
+    }
+
+    //디바이스 해상도별 처리
+    private CompositePageTransformer initResolutionSwipe() {
         Display display = getWindowManager().getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);
@@ -100,37 +143,10 @@ public class MovieHomeActivity extends AppCompatActivity implements MovieItemCli
                 }
             });
         }
-
-        movieSliderPager.setPageTransformer(compositePageTransformer);
-
-        //setup indicator
-        setupMovieSliderIndicators();
-        setCurrentMovieSliderIndicator(0);
-        movieSliderPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
-            @Override
-            public void onPageSelected(int position) {
-                super.onPageSelected(position);
-                setCurrentMovieSliderIndicator(position);
-            }
-        });
-
-        //슬라이더 setup timer
-        Timer timer = new Timer();
-        timer.scheduleAtFixedRate(new SliderTimer(), 4000, 6000);
-
-
-        //인기영화데이터 가져오기
-        popularMovieModels = MOVIES;
-        //인기 영화 리스트
-        PopularMovieAdapter movieAdapter = new PopularMovieAdapter(this, popularMovieModels, this );
-
-        homePopularMovieRV.setAdapter(movieAdapter);
-        homePopularMovieRV.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        //movieRV.setLayoutManager(new GridLayoutManager(this, 3));
-
+        return compositePageTransformer;
     }
 
-
+    //메인 슬라이드 인디케이터 셋업
     private void setupMovieSliderIndicators(){
         ImageView[] indicators = new ImageView[homeSliderAdapter.getItemCount()];
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
@@ -144,14 +160,15 @@ public class MovieHomeActivity extends AppCompatActivity implements MovieItemCli
                     R.drawable.indicator_inactive
             ));
             indicators[i].setLayoutParams(layoutParams);
-            layoutIndicator.addView(indicators[i]);
+            indicatorLayout.addView(indicators[i]);
         }
     }
 
+    //메인 슬라이드 인디케이터 초기화
     private void setCurrentMovieSliderIndicator(int index){
-        int childCount = layoutIndicator.getChildCount();
+        int childCount = indicatorLayout.getChildCount();
         for(int i = 0; i <childCount; i++){
-            ImageView imageView = (ImageView) layoutIndicator.getChildAt(i);
+            ImageView imageView = (ImageView) indicatorLayout.getChildAt(i);
             if(i == index){
                 imageView.setImageDrawable(
                         ContextCompat.getDrawable(getApplicationContext(), R.drawable.indicator_active)
@@ -164,11 +181,10 @@ public class MovieHomeActivity extends AppCompatActivity implements MovieItemCli
         }
     }
 
-
-    //인기 무비 클릭
+    //인기영화 클릭 이벤트 처리
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
-    public void onMovieClick(PopularMovieModel movie, ImageView movieImageView ) {
+    public void onMovieClick(MovieModel movie, ImageView movieImageView ) {
 
         //영화 정보를 영화 상세 페이지로 보낸다
         //또한 두 activity 간의 트랜지션 애니메이션을 만든다.
@@ -181,6 +197,7 @@ public class MovieHomeActivity extends AppCompatActivity implements MovieItemCli
         intent.putExtra("imgCover",movie.getBackdrop_path());
         intent.putExtra("overview",movie.getOverview());
         intent.putExtra("voteRate",movie.getVote_average());
+        intent.putExtra("streamimgLink",movie.getStreamimgLink());
 
 
         Pair[] pairs = new Pair[1];
@@ -191,6 +208,7 @@ public class MovieHomeActivity extends AppCompatActivity implements MovieItemCli
 
     }
 
+    //메인 슬라이드 자동 슬라이딩 타이머 설정
     class SliderTimer extends TimerTask {
         @Override
         public void run() {

@@ -53,10 +53,10 @@
             android:focusable="true"
             android:src="@drawable/ic_baseline_play_arrow_24"
             app:backgroundTint="@color/colorAccent"
-            app:layout_constraintBottom_toBottomOf="@+id/detail_movie_img"
-            app:layout_constraintEnd_toEndOf="@+id/detail_movie_img"
-            app:layout_constraintStart_toStartOf="@+id/detail_movie_img"
-            app:layout_constraintTop_toBottomOf="@+id/detail_movie_img"
+            app:layout_constraintBottom_toTopOf="@+id/detail_movie_title"
+            app:layout_constraintEnd_toEndOf="@+id/detail_movie_cover"
+            app:layout_constraintStart_toStartOf="@+id/detail_movie_cover"
+            app:layout_constraintTop_toTopOf="parent"
             tools:ignore="MissingConstraints" />
 
         <com.makeramen.roundedimageview.RoundedImageView
@@ -73,7 +73,7 @@
             app:layout_constraintCircleRadius="10dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/detail_movie_cover"
-            app:layout_constraintVertical_bias="0.48000002"
+            app:layout_constraintVertical_bias="0.497"
             app:riv_corner_radius="10dp" />
 
         <TextView
@@ -99,9 +99,9 @@
         <antonkozyriatskyi.circularprogressindicator.CircularProgressIndicator
             android:id="@+id/vote_rate"
             style="?android:attr/progressBarStyle"
-            android:layout_gravity="center"
             android:layout_width="45dp"
             android:layout_height="45dp"
+            android:layout_gravity="center"
             android:layout_marginTop="8dp"
             app:direction="clockwise"
             app:fillBackground="true"
@@ -115,6 +115,7 @@
             app:progressColor="@color/colorAccent"
             app:progressStrokeWidth="6dp"
             app:startAngle="270"
+            app:textColor="@color/colorPrimaryDark"
             app:textSize="12sp" />
 
         <com.ms.square.android.expandabletextview.ExpandableTextView
@@ -123,13 +124,13 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginLeft="16dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="24dp"
             android:layout_marginEnd="16dp"
             android:layout_marginRight="16dp"
             app:animDuration="200"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/play_fab"
+            app:layout_constraintTop_toBottomOf="@+id/detail_movie_img"
             app:maxCollapsedLines="3"
             tools:ignore="MissingConstraints">
 
@@ -158,11 +159,11 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginLeft="16dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="12dp"
             android:fontFamily="@font/gmarketsansttfbold"
             android:text="등장인물"
             android:textColor="@color/text_white"
-            android:textSize="18sp"
+            android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -183,7 +184,22 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/cast_title" />
 
-
+        <TextView
+            android:id="@+id/similar_content_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="12dp"
+            android:fontFamily="@font/gmarketsansttfbold"
+            android:text="비슷한 영화"
+            android:textColor="@color/text_white"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/rv_moviecast"
+            app:layout_constraintVertical_bias="0.0" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 

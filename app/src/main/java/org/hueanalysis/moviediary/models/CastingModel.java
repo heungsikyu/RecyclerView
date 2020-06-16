@@ -1,6 +1,6 @@
 package org.hueanalysis.moviediary.models;
 
-public class CastMovieModel {
+public class CastingModel {
 
 
     int id;
@@ -16,16 +16,8 @@ public class CastMovieModel {
 
     private static final String PROFILE_BASE_URL = "https://image.tmdb.org/t/p/w276_and_h350_face";
 
-    public static  CastMovieModel[] CASTS = new CastMovieModel[] {
 
-            new CastMovieModel(20738, "Kim Ki-taek", "5a4db31fc3a3683b82003a00", 2,  "Song Kang-ho", 0,"/714R0wEx5SJ9o7l1Zfs37jTc8hi.jpg"),
-            new CastMovieModel(115290, "Park Dong-ik", "5bcf34f9c3a3686637014df3", 2,  "Lee Sun-kyun", 1,"/nnwVLKIQPYoF88ohshnFfbSB0UW.jpg"),
-            new CastMovieModel(556435, "Yeon-kyo", "5bcf351f92514172df0118e1", 1,  "Cho Yeo-jeong", 2,"/5MgWM8pkUiYkj9MEaEpO0Ir1FD9.jpg"),
-            new CastMovieModel(1255881, "Ki-woo", "5a4db31fc3a3683b82003a00", 2,  "Choi Woo-shik", 3,"/hfskkkziJrGwobqik02RSoyt6v0.jpg"),
-            new CastMovieModel(1442583, "Ki-jung", "5bcf359b0e0a26624f012c00", 1,  "Park So-dam", 4,"/uWppIvypWODMjCxiGDWX92y86ci.jpg"),
-    };
-
-    public CastMovieModel(int id, String character, String credit_id, int gender, String name, int order, String profile_path) {
+    public CastingModel(int id, String character, String credit_id, int gender, String name, int order, String profile_path) {
         this.id = id;
         this.character = character;
         this.credit_id = credit_id;

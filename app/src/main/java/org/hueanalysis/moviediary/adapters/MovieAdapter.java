@@ -12,22 +12,22 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 
 import org.hueanalysis.moviediary.R;
-import org.hueanalysis.moviediary.models.PopularMovieModel;
+import org.hueanalysis.moviediary.models.MovieModel;
 
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class PopularMovieAdapter extends RecyclerView.Adapter<PopularMovieAdapter.MovieViewHolder> {
+public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHolder> {
 
     Context context;
-    PopularMovieModel[] movies ;
+    MovieModel[] movies ;
 
     MovieItemClickListener movieItemClickListener;
 
     RequestOptions option;
 
-    public PopularMovieAdapter(Context context, PopularMovieModel[] movies, MovieItemClickListener listener) {
+    public MovieAdapter(Context context, MovieModel[] movies, MovieItemClickListener listener) {
         this.context = context;
         this.movies = movies;
         movieItemClickListener = listener;
@@ -56,7 +56,9 @@ public class PopularMovieAdapter extends RecyclerView.Adapter<PopularMovieAdapte
                     public void run() {
                         if (i == 1) {
                            // Toast.makeText(context, movies[viewHolder.getAdapterPosition()].getTitle() + " " + movies[viewHolder.getAdapterPosition()], Toast.LENGTH_SHORT).show();
-                            movieItemClickListener.onMovieClick(movies[viewHolder.getAdapterPosition()], viewHolder.ImgMovieView);
+                            movieItemClickListener.onMovieClick(
+                                    movies[viewHolder.getAdapterPosition()]
+                                    , viewHolder.ImgMovieView);
                         } else if (i == 2) {
                             //  Toast.makeText(context, "더블 클릭", Toast.LENGTH_SHORT).show();
                         }

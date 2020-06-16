@@ -1,8 +1,9 @@
 package org.hueanalysis.moviediary.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.view.Window;
-import android.view.WindowManager;
+
+import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -13,14 +14,14 @@ import com.ms.square.android.expandabletextview.ExpandableTextView;
 
 import org.hueanalysis.moviediary.R;
 import org.hueanalysis.moviediary.adapters.MovieCastAdapter;
-import org.hueanalysis.moviediary.models.CastMovieModel;
+import org.hueanalysis.moviediary.models.CastingModel;
+import org.hueanalysis.moviediary.utils.DataSource;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import antonkozyriatskyi.circularprogressindicator.CircularProgressIndicator;
 
-import static org.hueanalysis.moviediary.models.CastMovieModel.CASTS;
 
 public class MovieDetailActivity extends AppCompatActivity {
 
@@ -32,7 +33,7 @@ public class MovieDetailActivity extends AppCompatActivity {
     private FloatingActionButton play_fab;
 
     private RecyclerView rvMovieCast;
-    private CastMovieModel[] castMovieModels;
+    private CastingModel[] castMovieModels;
 
 
     @Override
@@ -42,10 +43,12 @@ public class MovieDetailActivity extends AppCompatActivity {
 
         initViews();
 
+
+
     }
 
     void initViews() {
-        play_fab = findViewById(R.id.play_fab);
+        play_fab =  findViewById(R.id.play_fab);
         rvMovieCast = findViewById(R.id.rv_moviecast);
 
         String movieTitle = getIntent().getExtras().getString("title");
@@ -53,6 +56,8 @@ public class MovieDetailActivity extends AppCompatActivity {
         String imagecover = getIntent().getExtras().getString("imgCover");
         String overview = getIntent().getExtras().getString("overview");
         double voteRate = getIntent().getExtras().getDouble("voteRate");
+        String streamimgLink = getIntent().getExtras().getString("streamimgLink");
+
         MovieThumbnailImg = findViewById(R.id.detail_movie_img);
         Glide.with(this)
                 .asBitmap()
@@ -78,19 +83,32 @@ public class MovieDetailActivity extends AppCompatActivity {
         circularProgress.setProgressTextAdapter(TIME_TEXT_ADAPTER);
 
         // setup animation
+        //play_fab.setAnimation(AnimationUtils.loadAnimation(this, R.anim.scale_animation));
         MovieThumbnailImg.setAnimation(AnimationUtils.loadAnimation(this, R.anim.scale_animation));
         MovieCoverImg.setAnimation(AnimationUtils.loadAnimation(this, R.anim.scale_animation));
-        play_fab.setAnimation(AnimationUtils.loadAnimation(this, R.anim.scale_animation));
 
 
         //영화 등장인물
-        castMovieModels = CASTS;
+        castMovieModels = DataSource.getMovieCast();
         MovieCastAdapter movieCastAdapter = new MovieCastAdapter(this, castMovieModels);
         rvMovieCast.setAdapter(movieCastAdapter);
         rvMovieCast.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL,false));
 
+        play_fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), YoutubeMoviePlayerActivity.class);
+                intent.putExtra("streamimgLink",streamimgLink);
+                startActivity(intent);
+
+            }
+        });
+
     }
 
+
+
+    //CircularProgressIndicator 텍스트 처리
     private static final CircularProgressIndicator.ProgressTextAdapter TIME_TEXT_ADAPTER = new CircularProgressIndicator.ProgressTextAdapter() {
         @Override
         public String formatText(double voteRate) {

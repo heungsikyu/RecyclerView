@@ -9,7 +9,7 @@ import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 
 import org.hueanalysis.moviediary.R;
-import org.hueanalysis.moviediary.models.CastMovieModel;
+import org.hueanalysis.moviediary.models.CastingModel;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -17,9 +17,9 @@ import androidx.recyclerview.widget.RecyclerView;
 public class MovieCastAdapter extends RecyclerView.Adapter<MovieCastAdapter.MovieCastViewHolder> {
 
     Context mContext;
-    CastMovieModel[] casts ;
+    CastingModel[] casts ;
 
-    public MovieCastAdapter(Context mContext, CastMovieModel[] casts){
+    public MovieCastAdapter(Context mContext, CastingModel[] casts){
         this.mContext = mContext;
         this.casts = casts;
     }
